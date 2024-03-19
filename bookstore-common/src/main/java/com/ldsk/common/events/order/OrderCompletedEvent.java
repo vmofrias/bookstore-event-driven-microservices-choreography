@@ -3,19 +3,19 @@ package com.ldsk.common.events.order;
 import java.time.Instant;
 import java.util.UUID;
 
-import com.ldsk.common.events.OrderSaga;
-
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
-@Getter
-public class OrderCompletedEvent extends OrderSaga {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class OrderCompletedEvent implements OrderEvent {
 	
-	@Builder
-	public OrderCompletedEvent(UUID orderId, Instant createdAt) {
-		
-		super(orderId, createdAt);
-	}
+	private UUID orderId; 
+	private Instant createdAt;
 
 }

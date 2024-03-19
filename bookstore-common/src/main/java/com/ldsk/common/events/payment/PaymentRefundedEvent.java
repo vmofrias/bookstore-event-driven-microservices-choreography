@@ -3,26 +3,20 @@ package com.ldsk.common.events.payment;
 import java.time.Instant;
 import java.util.UUID;
 
-import com.ldsk.common.events.OrderSaga;
-
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
-@Getter
-public class PaymentRefundedEvent extends OrderSaga {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class PaymentRefundedEvent implements PaymentEvent {
 	
-	@Builder
-	public PaymentRefundedEvent(UUID orderId, Instant createdAt, UUID paymentId,
-			Integer customerId, Integer amount) {
-		
-		super(orderId, createdAt);
-		
-		this.paymentId = paymentId;
-		this.customerId = customerId;
-		this.amount = amount;
-	}
-
+	private UUID orderId; 
+	private Instant createdAt;
 	private UUID paymentId;
 	private Integer customerId;
 	private Integer amount;

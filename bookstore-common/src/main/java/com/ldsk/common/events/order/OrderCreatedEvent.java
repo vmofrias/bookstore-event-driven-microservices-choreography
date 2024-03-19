@@ -3,28 +3,20 @@ package com.ldsk.common.events.order;
 import java.time.Instant;
 import java.util.UUID;
 
-import com.ldsk.common.events.OrderSaga;
-
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
-@Getter
-public class OrderCreatedEvent extends OrderSaga {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class OrderCreatedEvent implements OrderEvent {
 	
-	@Builder
-	public OrderCreatedEvent(UUID orderId, Instant createdAt, Integer productId,
-			Integer customerId, Integer quantity, Integer unitPrice, Integer totalAmount) {
-		
-		super(orderId, createdAt);
-		
-		this.productId = productId;
-		this.customerId = customerId;
-		this.quantity = quantity;
-		this.unitPrice = unitPrice;
-		this.totalAmount = totalAmount;
-	}
-
+	private UUID orderId; 
+	private Instant createdAt;
 	private Integer productId;
 	private Integer customerId;
 	private Integer quantity;

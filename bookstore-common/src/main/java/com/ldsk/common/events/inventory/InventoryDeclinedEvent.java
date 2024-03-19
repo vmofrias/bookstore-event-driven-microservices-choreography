@@ -3,26 +3,20 @@ package com.ldsk.common.events.inventory;
 import java.time.Instant;
 import java.util.UUID;
 
-import com.ldsk.common.events.OrderSaga;
-
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
-@Getter
-public class InventoryDeclinedEvent extends OrderSaga {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class InventoryDeclinedEvent implements InventoryEvent {
 	
-	@Builder
-	public InventoryDeclinedEvent(UUID orderId, Instant createdAt, Integer productId,
-			Integer quantity, String message) {
-		
-		super(orderId, createdAt);
-		
-		this.productId = productId;
-		this.quantity = quantity;
-		this.message = message;
-	}
-
+	private UUID orderId; 
+	private Instant createdAt;
 	private Integer productId;
 	private Integer quantity;
 	private String message;

@@ -3,23 +3,20 @@ package com.ldsk.common.events.order;
 import java.time.Instant;
 import java.util.UUID;
 
-import com.ldsk.common.events.OrderSaga;
-
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
-@Getter
-public class OrderCancelledEvent extends OrderSaga {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class OrderCancelledEvent implements OrderEvent {
 	
-	@Builder
-	public OrderCancelledEvent(UUID orderId, Instant createdAt, String message) {
-		
-		super(orderId, createdAt);
-		
-		this.message = message;
-	}
-
+	private UUID orderId; 
+	private Instant createdAt;
 	private String message;
 	
 }

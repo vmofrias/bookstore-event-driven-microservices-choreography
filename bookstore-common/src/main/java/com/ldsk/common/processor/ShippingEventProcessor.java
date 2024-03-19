@@ -1,28 +1,29 @@
 package com.ldsk.common.processor;
 
-import com.ldsk.common.events.OrderSaga;
+import com.ldsk.common.events.DomainEvent;
+import com.ldsk.common.events.shipping.ShippingEvent;
 import com.ldsk.common.events.shipping.ShippingScheduledEvent;
 
 import reactor.core.publisher.Mono;
 
-public interface ShippingEventProcessor<R extends OrderSaga> extends EventProcessor<OrderSaga, R> {
+public interface ShippingEventProcessor<R extends DomainEvent> extends EventProcessor<ShippingEvent, R> {
 
 	@Override
-	default Mono<R> process(OrderSaga event) {
+	default Mono<R> process(ShippingEvent event) {
 		
 		return selectEvent(event);
 	}
 	
-	private Mono<R> selectEvent(OrderSaga event) {
+	private Mono<R> selectEvent(ShippingEvent event) {
 		
-		if(event instanceof ShippingScheduledEvent) {
+		if(event instanceof ShippingScheduledEvent shippingScheduledEvent) {
 			
-			return handleShippingScheduledEvent(event);
+			return handleShippingScheduledEvent(shippingScheduledEvent);
 		} 
 		
 		return null;
 	}
 	
-    Mono<R> handleShippingScheduledEvent(OrderSaga event);
+    Mono<R> handleShippingScheduledEvent(ShippingScheduledEvent event);
 
 }

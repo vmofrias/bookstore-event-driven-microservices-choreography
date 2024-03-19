@@ -1,40 +1,41 @@
 package com.ldsk.common.processor;
 
-import com.ldsk.common.events.OrderSaga;
+import com.ldsk.common.events.DomainEvent;
 import com.ldsk.common.events.payment.PaymentDeclinedEvent;
 import com.ldsk.common.events.payment.PaymentDeductedEvent;
+import com.ldsk.common.events.payment.PaymentEvent;
 import com.ldsk.common.events.payment.PaymentRefundedEvent;
 
 import reactor.core.publisher.Mono;
 
-public interface PaymentEventProcessor<R extends OrderSaga> extends EventProcessor<OrderSaga, R> {
+public interface PaymentEventProcessor<R extends DomainEvent> extends EventProcessor<PaymentEvent, R> {
 
 	@Override
-	default Mono<R> process(OrderSaga event) {
+	default Mono<R> process(PaymentEvent event) {
 		
 		return selectEvent(event);
 	}
 	
-	private Mono<R> selectEvent(OrderSaga event) {
+	private Mono<R> selectEvent(PaymentEvent event) {
 		
-		if(event instanceof PaymentDeductedEvent) {
+		if(event instanceof PaymentDeductedEvent paymentDeductedEvent) {
 			
-			return handlePaymentDeductedEvent(event);
-		} else if(event instanceof PaymentDeclinedEvent) {
+			return handlePaymentDeductedEvent(paymentDeductedEvent);
+		} else if(event instanceof PaymentDeclinedEvent paymentDeclinedEvent) {
 			
-			return handlePaymentDeclinedEvent(event);
-		} else if(event instanceof PaymentRefundedEvent) {
+			return handlePaymentDeclinedEvent(paymentDeclinedEvent);
+		} else if(event instanceof PaymentRefundedEvent paymentRefundedEvent) {
 			
-			return handlePaymentRefundedEvent(event);
+			return handlePaymentRefundedEvent(paymentRefundedEvent);
 		}
 		
 		return null;
 	}
 	
-    Mono<R> handlePaymentDeductedEvent(OrderSaga event);
+    Mono<R> handlePaymentDeductedEvent(PaymentDeductedEvent event);
 
-    Mono<R> handlePaymentDeclinedEvent(OrderSaga event);
+    Mono<R> handlePaymentDeclinedEvent(PaymentDeclinedEvent event);
 
-    Mono<R> handlePaymentRefundedEvent(OrderSaga event);	
+    Mono<R> handlePaymentRefundedEvent(PaymentRefundedEvent event);	
 	
 }

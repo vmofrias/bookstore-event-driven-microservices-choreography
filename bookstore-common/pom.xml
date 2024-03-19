@@ -9,13 +9,12 @@
  
   	<artifactId>bookstore-common</artifactId>
   	<name>bookstore-common</name>
+  	
+  	<properties>
+        <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+    </properties>
 	
 	<dependencies>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>

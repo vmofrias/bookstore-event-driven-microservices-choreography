@@ -1,40 +1,41 @@
 package com.ldsk.common.processor;
 
-import com.ldsk.common.events.OrderSaga;
+import com.ldsk.common.events.DomainEvent;
 import com.ldsk.common.events.inventory.InventoryDeclinedEvent;
 import com.ldsk.common.events.inventory.InventoryDeductedEvent;
+import com.ldsk.common.events.inventory.InventoryEvent;
 import com.ldsk.common.events.inventory.InventoryRestoredEvent;
 
 import reactor.core.publisher.Mono;
 
-public interface InventoryEventProcessor<R extends OrderSaga> extends EventProcessor<OrderSaga, R> {
+public interface InventoryEventProcessor<R extends DomainEvent> extends EventProcessor<InventoryEvent, R> {
 
 	@Override
-	default Mono<R> process(OrderSaga event) {
+	default Mono<R> process(InventoryEvent event) {
 		
 		return selectEvent(event);
 	}
 	
-	private Mono<R> selectEvent(OrderSaga event) {
+	private Mono<R> selectEvent(InventoryEvent event) {
 		
-		if(event instanceof InventoryDeductedEvent) {
+		if(event instanceof InventoryDeductedEvent inventoryDeductedEvent) {
 			
-			return handleInventoryDeductedEvent(event);
-		} else if(event instanceof InventoryDeclinedEvent) {
+			return handleInventoryDeductedEvent(inventoryDeductedEvent);
+		} else if(event instanceof InventoryDeclinedEvent inventoryDeclinedEvent) {
 			
-			return handleInventoryDeclinedEvent(event);
-		} else if(event instanceof InventoryRestoredEvent) {
+			return handleInventoryDeclinedEvent(inventoryDeclinedEvent);
+		} else if(event instanceof InventoryRestoredEvent inventoryRestoredEvent) {
 			
-			return handleInventoryRestoredEvent(event);
+			return handleInventoryRestoredEvent(inventoryRestoredEvent);
 		}
 		
 		return null;
 	}
 	
-    Mono<R> handleInventoryDeductedEvent(OrderSaga event);
+    Mono<R> handleInventoryDeductedEvent(InventoryDeductedEvent event);
 
-    Mono<R> handleInventoryDeclinedEvent(OrderSaga event);
+    Mono<R> handleInventoryDeclinedEvent(InventoryDeclinedEvent event);
 
-    Mono<R> handleInventoryRestoredEvent(OrderSaga event);	
+    Mono<R> handleInventoryRestoredEvent(InventoryRestoredEvent event);	
 	
 }
