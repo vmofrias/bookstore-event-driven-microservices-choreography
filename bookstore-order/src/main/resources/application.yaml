@@ -1,4 +1,10 @@
+server:
+  port: 8080
 spring:
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:order-db}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   cloud:
     function:
       definition: orderEventProducer;paymentProcessor;inventoryProcessor;shippingProcessor
