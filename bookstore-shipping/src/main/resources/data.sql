@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS shipment;
 
 CREATE TABLE shipment (
-   id uuid default random_uuid() primary key,
+   id uuid default gen_random_uuid() primary key,
    order_id uuid,
    product_id int,
    customer_id int,

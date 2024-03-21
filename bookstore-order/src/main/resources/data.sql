@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS order_inventory;
 DROP TABLE IF EXISTS purchase_order;
 
 CREATE TABLE purchase_order (
-    order_id uuid default random_uuid() primary key,
+    order_id uuid default gen_random_uuid() primary key,
     customer_id int,
     product_id int,
     quantity int,
@@ -15,7 +15,7 @@ CREATE TABLE purchase_order (
 );
 
 CREATE TABLE order_payment (
-    id int AUTO_INCREMENT primary key,
+    id SERIAL primary key,
     order_id uuid unique,
     payment_id uuid,
     success boolean,
@@ -25,7 +25,7 @@ CREATE TABLE order_payment (
 );
 
 CREATE TABLE order_inventory (
-    id int AUTO_INCREMENT primary key,
+    id SERIAL primary key,
     order_id uuid unique,
     inventory_id uuid,
     success boolean,
