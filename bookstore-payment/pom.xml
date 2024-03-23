@@ -13,7 +13,11 @@
 		<dependency>
 			<groupId>com.ldsk</groupId>
 			<artifactId>bookstore-common</artifactId>
-		</dependency>			
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>
