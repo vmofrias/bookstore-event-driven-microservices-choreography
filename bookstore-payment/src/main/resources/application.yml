@@ -20,7 +20,7 @@ spring:
           destination: payment-events
       kafka:
         binder:
-          brokers: 192.168.15.114:9093
+          brokers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9093}
           consumer-properties:
             "value.deserializer": org.springframework.kafka.support.serializer.JsonDeserializer
             "key.deserializer": org.apache.kafka.common.serialization.StringDeserializer
