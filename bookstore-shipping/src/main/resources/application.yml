@@ -1,10 +1,17 @@
 server:
   port: 9300
+database:
+  url: postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:shipping-db}
 spring:
   r2dbc:
-    url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:shipping-db}
+    url: r2dbc:${database.url}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+  flyway:
+    locations: classpath:db/migration
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:${database.url}
   cloud:
     function:
       definition: processor
